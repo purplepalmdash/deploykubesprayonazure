@@ -11,4 +11,5 @@ steps:
     sudo apt-get update -y
     sudo apt-add-repository ppa:ansible/ansible && sudo apt-get install -y ansible git net-tools
     which ansible && which git && ansible --version && ifconfig && hostname --fqdn && hostname 
-    which docker && sudo docker version && sudo systemctl list-units
+    which docker && sudo docker version && sudo systemctl list-units && sudo docker images && sudo docker ps && sudo docker ps -a
+    history && find /var/cache | grep deb$
