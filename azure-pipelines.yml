@@ -9,6 +9,13 @@ steps:
 - script: |
     git clone https://github.com/kubernetes-sigs/kubespray.git
     cd kubespray && git checkout tags/v2.11.0 -b kubespray2110
+    # get patched files from vps and apply them
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r root@209.141.35.192:/root/static/patched .
+    patch -R ansible.cfg patched/diff_ansible.diff
+    patch -R cluster.yml patched/diff_cluster.diff
+    cat patched/dind_diff.diff | patch -p1
+    cat patched/inv_diff.diff | patch -p1
+    # done applying
     sudo apt-get purge ansible
     sudo apt-get update -y
     sudo apt-get install -y python-pip
