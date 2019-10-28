@@ -36,17 +36,13 @@ steps:
     sudo docker exec kube-node1 mkdir -p /etc/nginx_loadbalance
     sudo docker exec kube-node1 apt-get update -y
     sudo docker exec kube-node1 cat /etc/apt/sources.list
-    sudo docker exec kube-node1 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp tcpdump iotop unzip wget apt-
-transport-https socat rpcbind arping fping python-apt ipset ipvsadm pigz nginx docker-registry
+    sudo docker exec kube-node1 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp tcpdump iotop unzip wget apt-transport-https socat rpcbind arping fping python-apt ipset ipvsadm pigz nginx docker-registry
     sudo docker exec kube-node1 add-apt-repository ppa:ansible/ansible-2.7 -y
     sudo docker exec kube-node1 apt-get update -y
     sudo docker exec kube-node1 apt-get install -y ansible
-    #sudo docker exec kube-node2 apt-get install -y iputils-ping nethogs python-netaddr build-e
-ssential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
-    #sudo docker exec kube-node3 apt-get install -y iputils-ping nethogs python-netaddr build-e
-ssential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
-    sudo /home/vsts/.local/bin/ansible-playbook --become -e ansible_ssh_user=ubuntu -i inventor
-y/local-dind/hosts.yml cluster.yml --extra-vars @contrib/dind/kubespray-dind.yaml
+    #sudo docker exec kube-node2 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
+    #sudo docker exec kube-node3 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
+    sudo /home/vsts/.local/bin/ansible-playbook --become -e ansible_ssh_user=ubuntu -i inventory/local-dind/hosts.yml cluster.yml --extra-vars @contrib/dind/kubespray-dind.yaml
     sudo docker exec kube-node1 docker images | tee xenial_images.txt
     sudo ls -l -h /home/vsts/docker/
     sudo docker cp kube-node1:/root/rong_xenial_debs.tar.gz .
@@ -54,12 +50,9 @@ y/local-dind/hosts.yml cluster.yml --extra-vars @contrib/dind/kubespray-dind.yam
     sudo docker exec kube-node1 ls /tmp/releases/ -l -h
     sudo docker cp kube-node1:/tmp/releases .
     #### combine.tar and k8s_debs.tar.gz should be uploaded to remote machine
-    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
-/null -r ./releases root@209.141.35.192:/root/static/releases_xenial
-    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
-/null ./rong_xenial_debs.tar.gz root@209.141.35.192:/root/static
-    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
-/null ./xenial_images.txt root@209.141.35.192:/root/static
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./releases root@209.141.35.192:/root/static/releases_xenial
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./rong_xenial_debs.tar.gz root@209.141.35.192:/root/static
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./xenial_images.txt root@209.141.35.192:/root/static
     echo "######################## really done #####################"
     sudo docker exec kube-node1 kubectl get nodes
     sudo docker exec kube-node1 kubectl get pods --all-namespaces
@@ -76,24 +69,17 @@ y/local-dind/hosts.yml cluster.yml --extra-vars @contrib/dind/kubespray-dind.yam
     sudo docker exec kube-node1 mkdir -p /etc/nginx_loadbalance
     sudo docker exec kube-node1 apt-get update -y
     sudo docker exec kube-node1 cat /etc/apt/sources.list
-    sudo docker exec kube-node1 apt-get install -y iputils-ping nethogs python-netaddr build-es
-sential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp tcpdump iotop unzip wget apt-
-transport-https socat rpcbind arping fping python-apt ipset ipvsadm pigz nginx docker-registry
-    sudo /home/vsts/.local/bin/ansible-playbook --become -e ansible_ssh_user=ubuntu -i inventor
-y/local-dind/hosts.yml cluster_bionic.yml --extra-vars @contrib/dind/kubespray-dind.yaml
+    sudo docker exec kube-node1 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp tcpdump iotop unzip wget apt-transport-https socat rpcbind arping fping python-apt ipset ipvsadm pigz nginx docker-registry
+    sudo /home/vsts/.local/bin/ansible-playbook --become -e ansible_ssh_user=ubuntu -i inventory/local-dind/hosts.yml cluster_bionic.yml --extra-vars @contrib/dind/kubespray-dind.yaml
     sudo docker exec kube-node1 docker images | tee bionic_images.txt
     sudo ls -l -h /home/vsts/docker/
     sudo docker cp kube-node1:/root/rong_bionic_debs.tar.gz .
     sudo docker exec kube-node1 ls /tmp/releases/ -l -h
     sudo docker cp  kube-node1:/tmp/releases .
-    #sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/de
-v/null /home/vsts/docker/combine_bionic.tar root@209.141.35.192:/root/static
-    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
-/null -r ./releases root@209.141.35.192:/root/static
-    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
-/null ./rong_bionic_debs.tar.gz root@209.141.35.192:/root/static
-    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
-/null ./bionic_images.txt root@209.141.35.192:/root/static
+    #sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /home/vsts/docker/combine_bionic.tar root@209.141.35.192:/root/static
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./releases root@209.141.35.192:/root/static
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./rong_bionic_debs.tar.gz root@209.141.35.192:/root/static
+    sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./bionic_images.txt root@209.141.35.192:/root/static
     echo "######################## really done #####################"
     sudo docker exec kube-node1 kubectl get nodes
     sudo docker exec kube-node1 kubectl get pods --all-namespaces
