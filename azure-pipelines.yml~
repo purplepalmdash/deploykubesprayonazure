@@ -12,7 +12,7 @@ steps:
     # get patched files from vps and apply them
     sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r root@209.141.35.192:/root/static/patched .
     patch -R ansible.cfg patched/diff_ansible.diff
-    patch -R cluster.yml patched/diff_cluster.diff
+    #patch -R cluster.yml patched/diff_cluster.diff
     cat patched/dind_diff.diff | patch -p1
     cat patched/inv_diff.diff | patch -p1
     # done applying
@@ -43,10 +43,10 @@ steps:
     sudo docker exec kube-node1 mkdir -p /etc/nginx_loadbalance
     sudo docker exec kube-node1 apt-get update -y
     sudo docker exec kube-node1 cat /etc/apt/sources.list
-    sudo docker exec kube-node1 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp tcpdump iotop unzip wget apt-transport-https socat rpcbind arping fping python-apt ipset ipvsadm pigz nginx docker-registry
-    sudo docker exec kube-node1 add-apt-repository ppa:ansible/ansible -y
-    sudo docker exec kube-node1 apt-get update -y
-    sudo docker exec kube-node1 apt-get install -y ansible
+    #sudo docker exec kube-node1 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp tcpdump iotop unzip wget apt-transport-https socat rpcbind arping fping python-apt ipset ipvsadm pigz nginx docker-registry
+    #sudo docker exec kube-node1 add-apt-repository ppa:ansible/ansible -y
+    #sudo docker exec kube-node1 apt-get update -y
+    #sudo docker exec kube-node1 apt-get install -y ansible
     #sudo docker exec kube-node2 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
     #sudo docker exec kube-node3 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
     sudo cat inventory/local-dind/hosts.yml 
