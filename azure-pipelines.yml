@@ -60,7 +60,6 @@ steps:
     sudo docker cp kube-node1:/tmp/releases .
     #### combine.tar and k8s_debs.tar.gz should be uploaded to remote machine
     sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./releases root@209.141.35.192:/root/static/releases_xenial
-    #sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./rong_xenial_debs.tar.gz root@209.141.35.192:/root/static
     sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./xenial_images.txt root@209.141.35.192:/root/static
     echo "######################## really done #####################"
     sudo docker exec kube-node1 kubectl get nodes
