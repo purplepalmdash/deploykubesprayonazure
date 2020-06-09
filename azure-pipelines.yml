@@ -14,7 +14,7 @@ steps:
     patch -R ansible.cfg patched/diff_ansible.diff
     #patch -R cluster.yml patched/diff_cluster.diff
     cat patched/dind_diff.diff | patch -p1
-    cat patched/inv_diff.diff | patch -p1
+    #cat patched/inv_diff.diff | patch -p1
     # done applying
     sudo apt-get purge ansible
     sudo apt-get update -y
@@ -47,7 +47,7 @@ steps:
     sudo docker exec kube-node1 add-apt-repository ppa:ansible/ansible -y
     sudo docker exec kube-node1 apt-get update -y
     sudo docker exec kube-node1 apt-get install -y ansible
-    sudo docker exec kube-node2 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
+    #sudo docker exec kube-node2 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
     #sudo docker exec kube-node3 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
     sudo cat inventory/local-dind/hosts.yml 
     sudo cat contrib/dind/kubespray-dind.yaml
