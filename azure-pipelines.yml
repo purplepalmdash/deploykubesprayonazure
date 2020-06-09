@@ -49,6 +49,8 @@ steps:
     sudo docker exec kube-node1 apt-get install -y ansible
     #sudo docker exec kube-node2 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
     #sudo docker exec kube-node3 apt-get install -y iputils-ping nethogs python-netaddr build-essential bind9 bind9utils nfs-common nfs-kernel-server ntpdate ntp
+    sudo cat inventory/local-dind/hosts.yml 
+    sudo cat contrib/dind/kubespray-dind.yaml
     sudo /home/vsts/.local/bin/ansible-playbook --become -e ansible_ssh_user=ubuntu -i inventory/local-dind/hosts.yml cluster.yml --extra-vars @contrib/dind/kubespray-dind.yaml
     sudo docker exec kube-node1 docker images | tee xenial_images.txt
     sudo ls -l -h /home/vsts/docker/
