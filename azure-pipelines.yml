@@ -15,7 +15,7 @@ steps:
     #patch -R cluster.yml patched/diff_cluster.diff
     cat patched/dind_diff.diff | patch -p1
     #cat patched/inv_diff.diff | patch -p1
-    # done applying
+    # done applying1
     sudo apt-get purge ansible
     sudo apt-get update -y
     sudo apt-get install -y python-pip
