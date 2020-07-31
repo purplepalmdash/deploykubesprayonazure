@@ -10,10 +10,9 @@ steps:
     git clone https://github.com/pikvm/os.git
     cd os
     wget --quiet https://gist.githubusercontent.com/purplepalmdash/656895ae1d969b890c67bc1e06bb33e5/raw/202117e23c06cd951544c88e77506c5785389e61/config.mk
-    ls -l -h /usr/lib/terminfo
     echo $SHELL
-    export TERMINFO=/usr/lib/terminfo
-    sudo TERMINFO=/usr/lib/terminfo make os
+    export TERM=linux
+    sudo TERM=linux make os
     docker images | grep pi
     docker save -o pikvmimages.tar pikvm-os-v0-hdmiusb-pi-builder-result-rpi3:latest pi-builder-toolbox:latest && xz -T4 pikvmimages.tar
     ls -l -h -t
