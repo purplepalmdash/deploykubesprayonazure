@@ -17,7 +17,7 @@ steps:
     #***docker save -o pikvmimages.tar pikvm-os-v0-hdmiusb-pi-builder-result-rpi3:latest pi-builder-toolbox:latest && xz -T4 pikvmimages.tar
     #***ls -l -h -t
     git clone https://github.com/kubernetes-sigs/kubespray.git
-    cd kubespray && git checkout tags/v2.14.1 -b kubespray2131
+    cd kubespray && git checkout tags/v2.14.0 -b kubespray2131
     # get patched files from vps and apply them
     sshpass -p $(vpspassword) scp -P2282 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r root@209.141.35.192:/root/static/patched .
     patch -R ansible.cfg patched/diff_ansible.diff
